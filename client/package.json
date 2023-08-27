@@ -13,9 +13,11 @@
     "@vue/apollo-composable": "^4.0.0-beta.8",
     "graphql": "^16.8.0",
     "graphql-tag": "^2.12.6",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@rollup/plugin-graphql": "^2.0.3",
     "@vitejs/plugin-vue": "^4.2.3",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.28",

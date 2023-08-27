@@ -1,4 +1,5 @@
 import { createApp, provide, h } from "vue";
+import store from "./store/store";
 import "./style.css";
 import "./index.css";
 import App from "./App.vue";
@@ -30,4 +31,4 @@ const app = createApp({
   render: () => h(App),
 });
 
-app.mount("#app");
+app.use(store).mount("#app");

@@ -2,6 +2,7 @@
 <template>
     <div class="w-full max-w-xs">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            {{ user }}
             <div class="mb-4">
                 <BaseInput v-model="userEmail" placeholder="Email" type="email" />
             </div>
@@ -20,15 +21,36 @@
 </template>
 <script setup>
 import { ref } from 'vue';
+import { useStore } from "vuex";
 import BaseInput from './BaseInput.vue';
+import { useMutation } from "@vue/apollo-composable"
+import SignInMutation from "../graphql/user.mutation.gql"
+
+
+const { mutate: signInUser, onDone, result } = useMutation(SignInMutation, () => ({
+    variables: {
+        email: userEmail.value,
+        password: userPassword.value,
+    }
+}))
+
+const store = useStore();
 
 const userEmail = ref("")
 const userPassword = ref("")
 
+const user = store.state.user
+
 function onSubmit() {
+    signInUser();
     console.log(userEmail.value)
     console.log(userPassword.value)
 }
+
+onDone(result => {
+    store.commit("setUserId", result.data.signInUser.user.id)
+})
+
 
 
 </script>
