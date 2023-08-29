@@ -1,8 +1,10 @@
 import { createApp, provide, h } from "vue";
+import App from "./App.vue";
+import router from "./router";
 import { createPinia } from "pinia";
 import "./style.css";
 import "./index.css";
-import App from "./App.vue";
+
 import { setContext } from "@apollo/client/link/context";
 
 import {
@@ -44,4 +46,5 @@ const app = createApp({
 
 const pinia = createPinia();
 
+app.use(router);
 app.use(pinia).mount("#app");

@@ -1,7 +1,19 @@
 <template>
-    <nav class="bg-gray-200 p-4 flex justify-between ">
-        <LoginForm v-if="!isLoggedIn" />
-        <button @click="logout">LOGOUT</button>
+    <nav class="bg-gray-200 p-4 justify-between shadow-lg gap-8">
+        <div class="flex justify-between">
+            <div v-if="!isLoggedIn">
+                <LoginForm />
+            </div>
+            <div v-else class="flex gap-4 ">
+                <div class="flex gap-4">
+                    <router-link to="/swipe">SWIPE</router-link>
+                    <router-link to="/match">MATCH</router-link>
+                </div>
+                <div class="justify-self-end">
+                    <button @click="logout">LOGOUT</button>
+                </div>
+            </div>
+        </div>
     </nav>
 </template>
 <script setup>
@@ -13,11 +25,11 @@ const isLoggedIn = computed(() => authStore.isLoggedIn);
 
 
 const logout = () => {
-    // Clear user data in the store
     authStore.setUser(null);
-
-    // Clear user data in local storage
     localStorage.removeItem("authUser");
+
+    window.location.reload();
+    window.location.href = "/";
 };
 
 

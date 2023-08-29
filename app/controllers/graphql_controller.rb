@@ -25,28 +25,30 @@ class GraphqlController < ApplicationController
 
   # gets current user from token stored in the session
   def current_user
-
-    authorization_header = request.headers['Authorization']
     
-
-    if authorization_header.present?
+    authorization_header = request.headers['Authorization']
+    if authorization_header.present? 
       
       token = authorization_header.split(' ').last
       
-    begin
-      decoded_token = JsonWebToken.decode(session[:token])
-      user_id = decoded_token[0]
-      user = User.find_by(id: user_id[0]["user_id"])
-      
-      user
-    rescue JWT::DecodeError, JWT::ExpiredSignature
+      begin
+        
+        decoded_token = JsonWebToken.decode(token)
+        
+        user_id = decoded_token[0]
+        
+        user = User.find_by(id: user_id[0]["user_id"])  
+        
+        user
+        
+      rescue JWT::DecodeError, JWT::ExpiredSignature
+        nil
+      end
+    
+    else
       nil
     end
-  else
-    nil
-  end
   
-    
   end
 
   # Handle variables in form data, JSON body, or a blank value

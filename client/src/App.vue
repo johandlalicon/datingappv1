@@ -1,21 +1,17 @@
 <template>
-  <!-- Conditional rendering of LoginForm component -->
   <Navbar />
-
-  <div>
-    <ProfileCard />
+  <div class="container grid items-center py-4">
+    <router-view></router-view>
   </div>
-  <!-- <LoginForm v-if="!isLoggedIn" /> -->
 </template>
 
 <script setup>
-import ProfileCard from './components/ProfileCard.vue';
-import Navbar from './components/Navbar.vue';
+
+import Navbar from "./components/Navbar.vue";
 import { onMounted, watch } from "vue";
 import { computed } from 'vue';
 import { useAuthStore } from './store/auth';
-import ListMatchQuery from './graphql/findMatch.query.gql'
-import { useQuery } from "@vue/apollo-composable"
+
 
 const authStore = useAuthStore();
 
@@ -23,8 +19,8 @@ const user = computed(() => authStore.user);
 const isLoggedIn = computed(() => authStore.isLoggedIn);
 
 
-const { result } = useQuery(ListMatchQuery);
-console.log(result)
+// const { result } = useQuery(ListMatchQuery);
+// console.log(result)
 
 onMounted(() => {
   const storedUser = localStorage.getItem("authUser");
@@ -46,4 +42,10 @@ watch(
 
 </script>
 
-<style scoped></style>
+<style scoped>
+#container {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+</style>

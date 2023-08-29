@@ -1,5 +1,6 @@
 module Types
   class QueryType < Types::BaseObject
+    require 'pry'
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
@@ -12,11 +13,15 @@ module Types
 
     field :find_match, [UserType], null: true do
       description "Find matching users based on gender and gender interest"
-      argument :user_id, ID, required: true
+     
     end
 
-    def find_match(user_id:)
-      user = User.find(user_id)
+    def find_match
+      # user = User.find(context[:current_user])
+      user = context[:current_user]
+      
+      return unless user
+      
       User.where(
         gender: user.read_attribute_before_type_cast(:gender_interest), gender_interest: user.read_attribute_before_type_cast(:gender)
       )

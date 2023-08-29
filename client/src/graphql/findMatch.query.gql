@@ -1,5 +1,5 @@
 query {
-  findMatch(userId: 176) {
+  findMatch {
     id
     firstName
     lastName
