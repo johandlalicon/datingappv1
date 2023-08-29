@@ -18,5 +18,12 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
     field :password_digest, String
+
+    def gender
+      object.gender_before_type_cast
+    end
+    def gender_interest
+      object.gender_before_type_cast
+    end
   end
 end

@@ -1,0 +1,11 @@
+query {
+  findMatch(userId: 176) {
+    id
+    firstName
+    lastName
+    locationCountry
+    locationState
+    locationCity
+    bio
+  }
+}

@@ -3,6 +3,8 @@ class GraphqlController < ApplicationController
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
+  require 'json_web_token'
+  require 'pry'
 
   def execute
     variables = prepare_variables(params[:variables])
@@ -23,15 +25,28 @@ class GraphqlController < ApplicationController
 
   # gets current user from token stored in the session
   def current_user
-    # if we want to change the sign-in strategy, this is the place to do it
-    return unless session[:token]
 
-    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
-    token = crypt.decrypt_and_verify session[:token]
-    user_id = token.gsub('user-id:', '').to_i
-    User.find user_id
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    authorization_header = request.headers['Authorization']
+    
+
+    if authorization_header.present?
+      
+      token = authorization_header.split(' ').last
+      
+    begin
+      decoded_token = JsonWebToken.decode(session[:token])
+      user_id = decoded_token[0]
+      user = User.find_by(id: user_id[0]["user_id"])
+      
+      user
+    rescue JWT::DecodeError, JWT::ExpiredSignature
+      nil
+    end
+  else
     nil
+  end
+  
+    
   end
 
   # Handle variables in form data, JSON body, or a blank value

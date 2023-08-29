@@ -1,5 +1,7 @@
 module Types
   class MutationType < Types::BaseObject
+    field :send_like, mutation: Mutations::SendLike
+    field :sign_out_user, mutation: Mutations::SignOutUser
     field :sign_in_user, mutation: Mutations::SignInUser
     field :create_user, mutation: Mutations::CreateUser
     # TODO: remove me

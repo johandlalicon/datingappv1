@@ -1,8 +1,9 @@
 import { createApp, provide, h } from "vue";
-import store from "./store/store";
+import { createPinia } from "pinia";
 import "./style.css";
 import "./index.css";
 import App from "./App.vue";
+import { setContext } from "@apollo/client/link/context";
 
 import {
   ApolloClient,
@@ -16,10 +17,20 @@ const httpLink = createHttpLink({
   uri: "http://localhost:3000/graphql",
 });
 
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("token");
+  return {
+    headers: {
+      ...headers,
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
 const cache = new InMemoryCache();
 
 const apolloClient = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache,
 });
 
@@ -31,4 +42,6 @@ const app = createApp({
   render: () => h(App),
 });
 
-app.use(store).mount("#app");
+const pinia = createPinia();
+
+app.use(pinia).mount("#app");

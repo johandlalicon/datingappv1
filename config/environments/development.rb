@@ -54,8 +54,11 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
     # # Enables session for graphiql-rails 
+    
+    # config.middleware.use ActionDispatch::Session::CookieStore, key: 'graphiql_session'
+    config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, key: 'graphiql_session'
+    config.middleware.use config.session_store, config.session_options
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
