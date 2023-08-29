@@ -5,7 +5,7 @@
             <p>Loading...</p>
         </template>
         <template v-else>
-            <ProfileCard v-for="profile in profiles" :key="profile.id" :firstName="profile.firstName"
+            <ProfileCard v-for="profile in profiles" :key="profile.id" :firstName="profile.firstName" :userId="profile.id"
                 :locationCity="profile.locationCity" :locationCountry="profile.locationCountry"
                 :locationState="profile.locationState" :lastName="profile.lastName" :bio="profile.bio" />
 
@@ -31,9 +31,9 @@ export default {
             console.log(profiles.value);
         };
 
-        // Watch for changes in the result
+
         watch(result, () => {
-            // Handle the result
+
             if (!result.value) {
                 return;
             }
@@ -42,7 +42,7 @@ export default {
             immediate: true
         });
 
-        // Handle additional actions when data is returned from the server
+
         onResult(({ data }) => {
             console.log(data)
         });

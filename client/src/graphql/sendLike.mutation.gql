@@ -1,0 +1,5 @@
+mutation SendLike($userId: ID!) {
+  sendLike(input: { userId: $userId }) {
+    success
+  }
+}

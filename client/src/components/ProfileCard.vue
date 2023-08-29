@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white">
+    <div class="bg-white" :hidden="hidden">
         <div class="mx-auto mt-10 max-w-2xl grid border-t border-gray-200 shadow-md p-4">
             <article class="flex flex-col items-center justify-between">
                 <div class="relative mt-8 flex items-center gap-x-4">
@@ -7,7 +7,7 @@
                         alt="" class="h-10 w-10 rounded-full bg-gray-50">
                     <div class="text-sm leading-6">
                         <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                            <strong>{{ firstName }} {{ lastName }}</strong>
+                            <strong>{{ firstName }} {{ lastName }} </strong>
                         </h3>
                         <p class="text-gray-600">{{ locationCity }}, {{ locationState }} | {{ locationCountry }}</p>
                     </div>
@@ -15,19 +15,51 @@
                 <div class="group relative">
                     <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">"{{ bio }}""</p>
                 </div>
-
+                <button @click="onLike(userId)"
+                    class="py-2 px-4 text-sm bg-sky-500 text-white mt-8"><strong>LIKE</strong></button>
             </article>
 
-            <!-- More posts... -->
         </div>
 
     </div>
 </template>
 <script setup>
 
+import { ref } from "vue";
+import SendLikeQuery from "../graphql/sendLike.mutation.gql"
+import { useMutation } from "@vue/apollo-composable"
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+const likedUser = ref("");
+const hidden = ref(false);
+
+const { mutate: sendLike, onDone } = useMutation(SendLikeQuery, () => ({
+    variables: {
+        userId: likedUser.value,
+    }
+}))
+
+function onLike(userId) {
+
+    likedUser.value = parseInt(userId)
+    console.log(likedUser.value)
+    hidden.value = true;
+    sendLike()
+
+}
+
+onDone((result) => {
+    console.log(result)
+    toast("Woohooo", {
+        autoClose: 1000,
+    });
+
+})
+
 const props = defineProps({
-    id: {
-        type: Number
+    userId: {
+        type: String
     },
     firstName: {
         type: String,
@@ -48,8 +80,6 @@ const props = defineProps({
         type: String,
     },
 })
-
-console.log(props.locationCity)
 
 </script>
 <style></style>

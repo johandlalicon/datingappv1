@@ -21,11 +21,14 @@ module Types
       user = context[:current_user]
       
       return unless user
+
+      user_sent_likes = Like.where(sender_id: user.id)
+      users_already_liked = user_sent_likes.pluck(:receiver_id)
       
       User.where(
         gender: user.read_attribute_before_type_cast(:gender_interest), gender_interest: user.read_attribute_before_type_cast(:gender)
       )
-    
+      .where.not(id: users_already_liked + [user.id])
     end
 
   end
