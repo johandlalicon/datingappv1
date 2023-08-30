@@ -29,14 +29,10 @@ mutation CreateUser(
       genderInterest: $gender_interest
     }
   ) {
-    firstName
-    lastName
-    mobileNumber
-    birthdate
-    locationCity
-    locationState
-    locationCountry
-    school
-    bio
+    token
+    user {
+      id
+      firstName
+    }
   }
 }

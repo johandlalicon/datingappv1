@@ -2,6 +2,8 @@ import { createApp, provide, h } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import { createPinia } from "pinia";
+import vueCountryRegionSelect from "vue3-country-region-select";
+
 import "./style.css";
 import "./index.css";
 
@@ -45,6 +47,6 @@ const app = createApp({
 });
 
 const pinia = createPinia();
-
+app.use(vueCountryRegionSelect);
 app.use(router);
 app.use(pinia).mount("#app");

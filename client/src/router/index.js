@@ -1,7 +1,7 @@
 import SwipePage from "../views/SwipePage.vue";
 import MatchPage from "../views/MatchPage.vue";
+import SignUpPage from "../views/SignUpPage.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import App from "../App.vue";
 
 const routes = [
   {
@@ -10,6 +10,7 @@ const routes = [
     component: SwipePage,
   },
   { path: "/match", name: "Match", component: MatchPage },
+  { path: "/register", name: "Sign Up", component: SignUpPage },
 ];
 
 const router = createRouter({

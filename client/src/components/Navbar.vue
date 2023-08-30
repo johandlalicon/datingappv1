@@ -3,6 +3,7 @@
         <div class="flex justify-between">
             <div v-if="!isLoggedIn">
                 <LoginForm />
+
             </div>
             <div v-else class="flex gap-4 ">
                 <div class="flex gap-4">
@@ -12,6 +13,9 @@
                 <div class="justify-self-end">
                     <button @click="logout">LOGOUT</button>
                 </div>
+            </div>
+            <div v-if="!isLoggedIn">
+                <router-link to="/register">REGISTER</router-link>
             </div>
         </div>
     </nav>

@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-  <div class="container grid items-center py-4">
+  <div class="container grid items-center py-4 mx-auto">
     <router-view></router-view>
   </div>
 </template>

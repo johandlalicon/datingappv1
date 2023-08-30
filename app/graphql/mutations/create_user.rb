@@ -1,6 +1,7 @@
 module Mutations
   class CreateUser < BaseMutation
-    
+    require 'json_web_token'
+
     class AuthProviderSignupData < Types::BaseInputObject
       argument :credentials, Types::AuthProviderCredentialsInputType, required: false
     end
@@ -18,10 +19,11 @@ module Mutations
     argument :gender_interest, Integer, required: true
     argument :auth_provider, AuthProviderSignupData, required: false
 
-    type Types::UserType
+    field :token, String, null: true
+    field :user, Types::UserType, null: true
 
     def resolve(**args)
-      User.create!(
+        user = User.create!(
         email: args[:auth_provider]&.[](:credentials)&.[](:email),
         password: args[:auth_provider]&.[](:credentials)&.[](:password),
         first_name: args[:first_name],
@@ -36,6 +38,16 @@ module Mutations
         bio: args[:bio],
         gender_interest: args[:gender_interest]
       )
+
+      if user.save
+        token = JsonWebToken.encode(user_id: user.id)
+        context[:session][:token] = token
+      else
+        raise GraphQL::ExecutionError, user.errors.full_messages.join(", ")
+      end
+
+      { user: user, token: token }
+
     end
   end
 end

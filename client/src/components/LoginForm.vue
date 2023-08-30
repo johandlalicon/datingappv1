@@ -1,19 +1,18 @@
 <template>
-    <div class="flex">
-        <p v-if="error" class="p-4">{{ error.message }}</p>
-        <form class="flex gap-4 item-center">
+    <p v-if="error" class="p-4">{{ error.message }}</p>
+    <form>
+        <div class="flex gap-4 item-center items-center">
             <BaseInput v-model="userEmail" placeholder="Email" type="email" />
             <BaseInput v-model="userPassword" type="password" placeholder="Password" />
-            <button type="button" @click="onSubmit">
+            <button type="button" @click="onSubmit" class="py-2 px-4 text-sm bg-sky-500 text-white">
                 SIGN IN
             </button>
-        </form>
-
-    </div>
+        </div>
+    </form>
 </template>
   
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 
 import { useAuthStore } from '../store/auth';
 import BaseInput from './BaseInput.vue';
