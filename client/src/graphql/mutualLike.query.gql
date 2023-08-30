@@ -1,0 +1,11 @@
+query {
+  mutualUsers {
+    id
+    firstName
+    lastName
+    locationCountry
+    locationState
+    locationCity
+    bio
+  }
+}

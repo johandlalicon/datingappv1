@@ -1,0 +1,42 @@
+mutation CreateUser(
+  $email: String!
+  $password: String!
+  $firstName: String!
+  $lastName: String!
+  $mobileNumber: Int!
+  $birthdate: ISO8601Date!
+  $gender: Int!
+  $locationCountry: String!
+  $locationState: String!
+  $locationCity: String!
+  $school: String
+  $bio: String!
+  $gender_interest: Int!
+) {
+  createUser(
+    input: {
+      authProvider: { credentials: { email: $email, password: $password } }
+      firstName: $firstName
+      lastName: $lastName
+      mobileNumber: $mobileNumber
+      birthdate: $birthdate
+      gender: $gender
+      locationCity: $locationCity
+      locationState: $locationState
+      locationCountry: $locationCountry
+      school: $school
+      bio: $bio
+      genderInterest: $gender_interest
+    }
+  ) {
+    firstName
+    lastName
+    mobileNumber
+    birthdate
+    locationCity
+    locationState
+    locationCountry
+    school
+    bio
+  }
+}
