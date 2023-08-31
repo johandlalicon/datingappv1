@@ -10,5 +10,7 @@ class User < ApplicationRecord
     has_many :sent_likes, class_name: 'Like', foreign_key: 'sender_id'
     has_many :received_likes, class_name: 'Like', foreign_key: 'receiver_id'
 
-
+    has_many :owner, class_name: 'MutualLike', foreign_key: 'owner_id'
+    has_many :match, class_name: 'MutualLike', foreign_key: 'match_id'
+    
 end

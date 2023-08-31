@@ -48,7 +48,6 @@ function onLike(userId) {
     console.log(likedUser.value)
     hidden.value = true;
     sendLike()
-
 }
 
 onDone((result) => {

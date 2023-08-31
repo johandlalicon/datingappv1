@@ -24,7 +24,7 @@ module Mutations
 
       context[:session][:token] = token
       
-      { user: user, token: token, admin: user.isAdmin  }
+      { user: user, token: token, admin: user.isAdmin?  }
       
     end
   end
