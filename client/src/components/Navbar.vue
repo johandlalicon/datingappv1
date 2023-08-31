@@ -3,7 +3,6 @@
         <div class="flex justify-between">
             <div v-if="!isLoggedIn">
                 <LoginForm />
-
             </div>
             <div v-else class="flex gap-4 ">
                 <div class="flex gap-4">

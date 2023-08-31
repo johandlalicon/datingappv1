@@ -7,6 +7,7 @@ module Mutations
 
     field :token, String, null: true
     field :user, Types::UserType, null: true
+    field :admin, Boolean, null: true
 
     def resolve(credentials: nil)
       
@@ -23,7 +24,7 @@ module Mutations
 
       context[:session][:token] = token
       
-      { user: user, token: token }
+      { user: user, token: token, admin: user.isAdmin  }
       
     end
   end

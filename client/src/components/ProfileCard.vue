@@ -29,6 +29,8 @@ import { ref } from "vue";
 import SendLikeQuery from "../graphql/sendLike.mutation.gql"
 import { useMutation } from "@vue/apollo-composable"
 import { toast } from 'vue3-toastify';
+import MutualUsersQuery from '../graphql/mutualLike.query.gql'
+import { useQuery } from "@vue/apollo-composable"
 import 'vue3-toastify/dist/index.css';
 
 const likedUser = ref("");
@@ -54,6 +56,9 @@ onDone((result) => {
     toast("Woohooo", {
         autoClose: 1000,
     });
+    sendLike.result.refetchQueries([
+        { query: MutualUsersQuery },
+    ]);
 
 })
 

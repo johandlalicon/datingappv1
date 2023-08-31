@@ -40,11 +40,8 @@ module Types
       user_received_likes = Like.where(receiver_id: user.id)
       
       mutual_likes = user_sent_likes.where(receiver_id: user_received_likes.select(:sender_id))
-      mutual_user_ids = user_received_likes.pluck(:sender_id).uniq - [user.id]
-
+      mutual_user_ids = mutual_likes.pluck(:receiver_id)
       mutual_users = User.where(id: mutual_user_ids)
-
-    
     end
     
   end

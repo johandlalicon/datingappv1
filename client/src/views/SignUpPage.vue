@@ -76,7 +76,7 @@ const genderInterestValue = computed({
     },
 });
 
-const { mutate: createUser, onDone, onError, error, result } = useMutation(CreateUserMutation, () => ({
+const { mutate: createUser, onDone, error } = useMutation(CreateUserMutation, () => ({
     variables: {
         email: userEmail.value,
         password: userPassword.value,

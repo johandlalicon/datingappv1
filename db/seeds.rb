@@ -20,4 +20,20 @@
   )
 
   end
+# Admin
+# User.create!(
+#   first_name: "Odin",
+#   last_name: "Boss",
+#   mobile_number: 11111111,
+#   email: "admin@example.com",
+#   password: 123456
+#   birthdate: 2010-10-10,
+#   gender: 1,
+#   location_country: "PH",
+#   location_state: "Olympus",
+#   location_city: "Valhalla",
+#   school: "N/A",
+#   bio: "N/A",
+#   gender_interest: 1)
+  
   

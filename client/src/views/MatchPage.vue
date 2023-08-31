@@ -24,7 +24,7 @@ export default {
     },
     setup() {
         const profiles = ref([]);
-        const { result, onResult, loading } = useQuery(MutualUsersQuery, {}, { fetchPolicy: "cache-first" });
+        const { result, onResult, loading } = useQuery(MutualUsersQuery, {});
 
         const handleResult = (data) => {
             profiles.value = data?.mutualUsers || [];

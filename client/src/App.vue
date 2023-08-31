@@ -2,6 +2,7 @@
   <Navbar />
   <div class="container grid items-center py-4 mx-auto">
     <router-view></router-view>
+    <h1 v-if="isLoggedIn">Welcome! {{ user.firstName }}</h1>
   </div>
 </template>
 
