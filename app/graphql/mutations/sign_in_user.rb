@@ -1,6 +1,6 @@
 module Mutations
   class SignInUser < BaseMutation
-    require 'json_web_token'
+    
     null true
 
     argument :credentials, Types::AuthProviderCredentialsInputType, required: false

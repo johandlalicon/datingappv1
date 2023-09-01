@@ -40,6 +40,7 @@ onDone(result => {
     console.log(user)
     authStore.setUser(user)
     localStorage.setItem('token', result.data.signInUser.token)
+    
 })
 
 </script>

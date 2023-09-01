@@ -3,7 +3,7 @@ class GraphqlController < ApplicationController
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
-  require 'json_web_token'
+  # require 'json_web_token'
   require 'pry'
 
   def execute

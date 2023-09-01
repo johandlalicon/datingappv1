@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: dating_app_v1_production
   username: dating_app_v1
   password: <%= ENV["DATING_APP_V1_DATABASE_PASSWORD"] %>
