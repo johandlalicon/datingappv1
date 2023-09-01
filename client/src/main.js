@@ -18,7 +18,7 @@ import {
 import { DefaultApolloClient } from "@vue/apollo-composable";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:3000/graphql",
+  uri: "https://datingtestapp.onrender.com/",
 });
 
 const authLink = setContext((_, { headers }) => {
